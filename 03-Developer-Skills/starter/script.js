@@ -129,7 +129,7 @@
 // const amplitudeBug = calcTempAmplitudeBug(temperatures, [-10, 20, 30]);
 // console.log(amplitudeBug);
 
-//////////////////////// CODING CHALLENGE #8 /////////////////////////////
+//////////////////////// CODING CHALLENGE #1 /////////////////////////////
 
 /*
 Given an array of forecasted maximum temperatures, the thermometer displays a string with the given temperatures.
@@ -144,22 +144,70 @@ TEST DATA 1: [17, 21, 23]
 TEST DATA 2: [12, 5, -5, 0, 4]
 */
 
-const printForecast = function (arr) {
-    let msg = '...';
-    for (let i = 0; i < arr.length; i++) {
-        msg += ` ${arr[i]}°C in ${i + 1} days ...`;
+// const printForecast = function (arr) {
+//     let msg = '...';
+//     for (let i = 0; i < arr.length; i++) {
+//         msg += ` ${arr[i]}°C in ${i + 1} days ...`;
+//     }
+//     console.log(msg);
+// };
+
+// const printForecast2 = function (arr) {
+//     for (let i = 0; i < arr.length; i++) {
+//         console.log(`... ${arr[i]}°C in ${i + 1} days ...`);
+//     }
+// };
+
+// console.log('TEST DATA 1:');
+// printForecast([17, 21, 23]);
+
+// console.log('TEST DATA 2:');
+// printForecast([12, 5, -5, 0, 4]);
+
+
+//////////////////////// CODING CHALLENGE #2 with AI /////////////////////////////
+
+/*
+Let's say you're building a time tracking application for freelancers. At some point in building this app, you need a function that receives daily work hours for a certain week, and returns:
+1. Total hours worked
+2. Average daily hours
+3. The day with the most hours worked
+4. Number of days worked
+5. Whether the week was full-time (worked 35 hours or more)
+
+TEST DATA: [7.5, 8, 6.5, 0, 8.5, 4, 0]
+*/
+
+/**
+ * Analyzes a week's work hours.
+ * @param {number[]} dailyHours - Array of daily work hours (Monday = 0).
+ * @returns {object} Analysis of the work week.
+ */
+function analyzeWorkWeek(dailyHours) {
+    if (!Array.isArray(dailyHours) || dailyHours.length !== 7) {
+        throw new Error('Input must be an array of exactly 7 numbers (one for each day of the week).');
     }
-    console.log(msg);
-};
+    const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const totalHours = dailyHours.reduce((sum, h) => sum + h, 0);
+    const daysWorked = dailyHours.filter(h => h > 0).length;
+    const avgDailyHours = daysWorked ? +(totalHours / daysWorked).toFixed(1) : 0;
+    const maxHours = Math.max(...dailyHours);
+    const dayWithMostHoursIdx = dailyHours.indexOf(maxHours);
+    const dayWithMostHours = daysOfWeek[dayWithMostHoursIdx];
+    const isFullTime = totalHours >= 35;
 
-const printForecast2 = function (arr) {
-    for (let i = 0; i < arr.length; i++) {
-        console.log(`... ${arr[i]}°C in ${i + 1} days ...`);
-    }
-};
+    return {
+        totalHours,
+        avgDailyHours,
+        dayWithMostHours,
+        daysWorked,
+        isFullTime,
+    };
+}
 
-console.log('TEST DATA 1:');
-printForecast([17, 21, 23]);
+// Example usage:
+const weekData = [7.5, 8, 6.5, 0, 8.5, 4, 0];
+console.log(analyzeWorkWeek(weekData));
 
-console.log('TEST DATA 2:');
-printForecast([12, 5, -5, 0, 4]);
+const weekData2 = [7.5, 8, 6.5, 0, 8.5];
+console.log(analyzeWorkWeek(weekData2));
