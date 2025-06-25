@@ -1,5 +1,11 @@
 {
     "editor.formatOnSave": true,
     "prettier.singleQuote": true,
-    "prettier.arrowParens": "avoid"
+    "prettier.arrowParens": "avoid",
+    "cSpell.words": [
+        "accs",
+        "BANKIST",
+        "movs",
+        "Schmedtmann"
+    ]
 }
